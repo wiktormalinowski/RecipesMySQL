@@ -2,6 +2,8 @@ package pl.maliniak.recipesmysql;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import pl.maliniak.recipesmysql.entities.Recipe;
+import pl.maliniak.recipesmysql.repository.RecipeRepo;
 
 import java.util.List;
 
