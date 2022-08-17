@@ -1,10 +1,11 @@
-package pl.maliniak.recipesmysql;
+package pl.maliniak.recipesmysql.services;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import pl.maliniak.recipesmysql.entities.UserDetailsImpl;
 import pl.maliniak.recipesmysql.entities.User;
 import pl.maliniak.recipesmysql.repository.UserRepo;
 

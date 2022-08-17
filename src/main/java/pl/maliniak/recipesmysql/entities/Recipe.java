@@ -1,4 +1,4 @@
-package pl.maliniak.recipesmysql;
+package pl.maliniak.recipesmysql.entities;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -6,12 +6,11 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
+import pl.maliniak.recipesmysql.entities.User;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 

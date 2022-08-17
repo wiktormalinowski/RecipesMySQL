@@ -1,12 +1,14 @@
-package pl.maliniak.recipesmysql;
+package pl.maliniak.recipesmysql.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import pl.maliniak.recipesmysql.security.EncoderConfig;
+import pl.maliniak.recipesmysql.entities.User;
+import pl.maliniak.recipesmysql.repository.UserRepo;
 
 import javax.validation.Valid;
 

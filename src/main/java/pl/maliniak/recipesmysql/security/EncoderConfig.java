@@ -1,4 +1,4 @@
-package pl.maliniak.recipesmysql;
+package pl.maliniak.recipesmysql.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

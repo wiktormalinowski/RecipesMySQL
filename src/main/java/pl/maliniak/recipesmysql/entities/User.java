@@ -1,4 +1,4 @@
-package pl.maliniak.recipesmysql;
+package pl.maliniak.recipesmysql.entities;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

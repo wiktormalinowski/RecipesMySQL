@@ -1,4 +1,4 @@
-package pl.maliniak.recipesmysql;
+package pl.maliniak.recipesmysql.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
