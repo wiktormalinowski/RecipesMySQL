@@ -1,4 +1,5 @@
 package pl.maliniak.recipesmysql.controllers;
+
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -13,6 +14,7 @@ import pl.maliniak.recipesmysql.repository.UserRepo;
 import javax.validation.Valid;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 @Slf4j
 @RestController
@@ -47,7 +49,7 @@ public class RecipeController {
         }
         recipe.setUser(userRepo.findUserByEmail(userDetails.getUsername()));
         recipeService.save(recipe);
-        return new ResponseEntity<>(Map.of("id", recipeService.count()), HttpStatus.OK);
+        return new ResponseEntity<>(Map.of("id", recipe.getId()), HttpStatus.OK);
     }
 
     @PutMapping(value = "/api/recipe/{id}")
@@ -55,7 +57,7 @@ public class RecipeController {
         if (recipeService.count() < id || !recipeService.exist(id)) {
             return new ResponseEntity<>("404 (Not found)", HttpStatus.NOT_FOUND);
         }
-        if (recipeService.findRecipeById(id).getUser().getEmail() != userDetails.getUsername()) {
+        if (!Objects.equals(recipeService.findRecipeById(id).getUser().getEmail(), userDetails.getUsername())) {
             return new ResponseEntity<>("403 Forbidden", HttpStatus.FORBIDDEN);
         }
         Recipe oldRecipe = recipeService.findRecipeById(id);
@@ -73,7 +75,7 @@ public class RecipeController {
         if (!recipeService.exist(id)) {
             return new ResponseEntity<>("404 (Not found)", HttpStatus.NOT_FOUND);
         }
-        if (recipeService.findRecipeById(id).getUser().getEmail() != userDetails.getUsername()) {
+        if (!Objects.equals(recipeService.findRecipeById(id).getUser().getEmail(), userDetails.getUsername())) {
             return new ResponseEntity<>("403 Forbidden", HttpStatus.FORBIDDEN);
         }
         recipeService.delete(recipeService.findRecipeById(id));

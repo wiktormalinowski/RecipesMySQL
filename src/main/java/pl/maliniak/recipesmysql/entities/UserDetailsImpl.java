@@ -15,6 +15,7 @@ import java.util.List;
 public class UserDetailsImpl implements UserDetails {
     private final String username;
     private final String password;
+    private final List<Recipe> favRecipes;
     private final List<GrantedAuthority> rolesAndAuthorities;
 
 
@@ -22,6 +23,7 @@ public class UserDetailsImpl implements UserDetails {
         this.username = user.getEmail();
         this.password = user.getPassword();
         rolesAndAuthorities = List.of(new SimpleGrantedAuthority(user.getRole()));
+        this.favRecipes = user.getFavouriteRecipes();
     }
 
     @Override
