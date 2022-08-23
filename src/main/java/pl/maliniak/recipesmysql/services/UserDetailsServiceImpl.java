@@ -17,7 +17,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     private UserRepo userRepo;
 
 
-    @Autowired
     public UserDetailsServiceImpl(UserRepo userRepo) {
         this.userRepo = userRepo;
     }

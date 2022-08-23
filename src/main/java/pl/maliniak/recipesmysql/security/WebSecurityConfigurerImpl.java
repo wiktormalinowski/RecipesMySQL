@@ -1,6 +1,7 @@
 package pl.maliniak.recipesmysql.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -15,16 +16,16 @@ import pl.maliniak.recipesmysql.services.UserDetailsServiceImpl;
 @EnableWebSecurity
 public class WebSecurityConfigurerImpl extends WebSecurityConfigurerAdapter {
 
-    @Autowired
-    UserDetailsServiceImpl userDetailsService;
 
-    @Autowired
-    EncoderConfig encoder;
+    private final UserDetailsServiceImpl userDetailsService;
+    private final EncoderConfig encoder;
 
+    @Value("${app.defaultPassword}")
+    String defaultPassword;
 
-
-    WebSecurityConfigurerImpl(UserDetailsServiceImpl userDetailsService) {
+    public WebSecurityConfigurerImpl(UserDetailsServiceImpl userDetailsService, EncoderConfig encoder) {
         this.userDetailsService = userDetailsService;
+        this.encoder = encoder;
     }
 
 
@@ -38,6 +39,11 @@ public class WebSecurityConfigurerImpl extends WebSecurityConfigurerAdapter {
 
 
         auth.authenticationProvider(daoAuth);
+
+        auth.inMemoryAuthentication()
+                .withUser("admin")
+                .password(encoder.passwordEncoder().encode(defaultPassword))
+                .roles("USER");
 
 
     }
