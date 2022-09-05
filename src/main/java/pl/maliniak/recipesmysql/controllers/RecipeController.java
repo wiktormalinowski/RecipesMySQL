@@ -44,7 +44,7 @@ public class RecipeController {
     @PostMapping(value = "/api/recipe/new")
     public ResponseEntity saveRecipe(@AuthenticationPrincipal UserDetailsImpl userDetails, @Valid @RequestBody Recipe recipe) {
         log.info("działa");
-        if (recipe.getDirections().size() < 1 || recipe.getIngredients().size() < 1) {
+        if (recipe.getDirections().isEmpty() || recipe.getIngredients().isEmpty()) {
             return new ResponseEntity<>("400 (Bad Request)", HttpStatus.BAD_REQUEST);
         }
         recipe.setUser(userRepo.findUserByEmail(userDetails.getUsername()));

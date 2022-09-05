@@ -1,0 +1,37 @@
+version: "3"
+services:
+  backend:
+    depends_on:
+      - mysqldb
+    image: myimage:0.1.0
+    ports:
+      - 8080:8080
+    networks:
+      - recipes-net
+    environment:
+      - URLDB=jdbc:mysql://mysqldb:3306/xyz
+      - DEFAULTPASSWORD=piwo
+      - USERDB=root
+      - PASSWDDB=secret
+
+  mysqldb:
+    image: mysql:8.0.30
+    ports:
+      - 3306:3306
+    environment:
+      - MYSQL_DATABASE=xyz
+      - MYSQL_ROOT_PASSWORD=secret
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=secret
+    networks:
+      - recipes-net
+    volumes:
+      - db-data:/var/lib/mysql
+
+volumes:
+  db-data:
+
+networks:
+  recipes-net:
+
+
