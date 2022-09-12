@@ -1,7 +1,6 @@
 package pl.maliniak.recipesmysql.controllers;
 
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -20,25 +19,20 @@ import java.util.Objects;
 @RestController
 public class RecipeController {
 
-    @Autowired
-    RecipeService recipeService;
-    @Autowired
-    UserRepo userRepo;
+    private RecipeService recipeService;
+    private UserRepo userRepo;
+    public RecipeController(RecipeService recipeService, UserRepo userRepo) {
+        this.recipeService = recipeService;
+        this.userRepo = userRepo;
+    }
 
 
     @GetMapping(value = "/api/recipe/{id}")
-    public ResponseEntity getRecipe(@PathVariable("id") Long id) {
+    public ResponseEntity<String> getRecipe(@PathVariable("id") Long id) {
         if (!recipeService.exist(id)) {
             return new ResponseEntity<>("404 (Not found)", HttpStatus.NOT_FOUND);
         }
-
-
-
-
-        return new ResponseEntity<>(recipeService.findRecipeById(id), HttpStatus.OK);
-
-
-
+        return new ResponseEntity<>(recipeService.findRecipeById(id).toString(), HttpStatus.OK);
 
     }
     @PostMapping(value = "/api/recipe/new")
@@ -53,7 +47,7 @@ public class RecipeController {
     }
 
     @PutMapping(value = "/api/recipe/{id}")
-    public ResponseEntity updateRecipe(@AuthenticationPrincipal UserDetailsImpl userDetails, @Valid @RequestBody Recipe recipe, @PathVariable Long id) {
+    public ResponseEntity<String> updateRecipe(@AuthenticationPrincipal UserDetailsImpl userDetails, @Valid @RequestBody Recipe recipe, @PathVariable Long id) {
         if (recipeService.count() < id || !recipeService.exist(id)) {
             return new ResponseEntity<>("404 (Not found)", HttpStatus.NOT_FOUND);
         }
@@ -71,7 +65,7 @@ public class RecipeController {
 
 
     @DeleteMapping(value = "api/recipe/{id}")
-    public ResponseEntity deleteRecipe(@AuthenticationPrincipal UserDetailsImpl userDetails, @PathVariable("id") Long id) {
+    public ResponseEntity<String> deleteRecipe(@AuthenticationPrincipal UserDetailsImpl userDetails, @PathVariable("id") Long id) {
         if (!recipeService.exist(id)) {
             return new ResponseEntity<>("404 (Not found)", HttpStatus.NOT_FOUND);
         }
@@ -83,12 +77,12 @@ public class RecipeController {
     }
 
     @GetMapping(value = "api/recipe/search/", params = "name")
-    public ResponseEntity findRecipeByName(@RequestParam("name") String name) {
+    public ResponseEntity<List<Recipe>> findRecipeByName(@RequestParam("name") String name) {
         List<Recipe> foundRecipes = recipeService.findRecipesByName(name);
         return new ResponseEntity<>(foundRecipes, HttpStatus.OK);
     }
     @GetMapping(value = "api/recipe/search/", params = "category")
-    public ResponseEntity findRecipeByCategory(@RequestParam("category") String category) {
+    public ResponseEntity<List<Recipe>> findRecipeByCategory(@RequestParam("category") String category) {
         List<Recipe> foundRecipes = recipeService.findRecipesByCategory(category);
         return new ResponseEntity<>(foundRecipes, HttpStatus.OK);
     }

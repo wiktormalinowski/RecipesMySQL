@@ -24,12 +24,15 @@ import java.util.List;
 @Controller
 public class UserController {
 
-    @Autowired
     UserRepo userRepo;
+    RecipeService recipeService;
     @Autowired
     EncoderConfig encoder;
-    @Autowired
-    RecipeService recipeService;
+
+    public UserController(UserRepo userRepo, RecipeService recipeService) {
+        this.userRepo = userRepo;
+        this.recipeService = recipeService;
+    }
 
     @PostMapping("/api/register")
     public ResponseEntity registerUser(@RequestBody @Valid User user) {
@@ -44,7 +47,7 @@ public class UserController {
     }
 
     @PostMapping("/api/setAsFavourite/{id}")
-    public ResponseEntity setAsFavourite(@AuthenticationPrincipal UserDetailsImpl user, @PathVariable("id") Long id) {
+    public ResponseEntity<String> setAsFavourite(@AuthenticationPrincipal UserDetailsImpl user, @PathVariable("id") Long id) {
         if (userRepo.findUserByEmail(user.getUsername()) == null) {
             return new ResponseEntity<>("tylko dla zarejestrowanych", HttpStatus.BAD_REQUEST);
         }

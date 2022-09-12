@@ -2,19 +2,20 @@ package pl.maliniak.recipesmysql.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.web.SecurityFilterChain;
 import pl.maliniak.recipesmysql.services.UserDetailsServiceImpl;
 
 
 @Configuration
 @EnableWebSecurity
-public class WebSecurityConfigurerImpl extends WebSecurityConfigurerAdapter {
+public class WebSecurityConfigurerImpl {
 
 
     private final UserDetailsServiceImpl userDetailsService;
@@ -22,16 +23,14 @@ public class WebSecurityConfigurerImpl extends WebSecurityConfigurerAdapter {
 
     @Value("${app.defaultPassword}")
     String defaultPassword;
-
     public WebSecurityConfigurerImpl(UserDetailsServiceImpl userDetailsService, EncoderConfig encoder) {
         this.userDetailsService = userDetailsService;
         this.encoder = encoder;
     }
 
 
-    @Override
     @Autowired
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+    public void configure(AuthenticationManagerBuilder auth) throws Exception {
 
         DaoAuthenticationProvider daoAuth = new DaoAuthenticationProvider();
         daoAuth.setUserDetailsService(userDetailsService);
@@ -47,13 +46,12 @@ public class WebSecurityConfigurerImpl extends WebSecurityConfigurerAdapter {
 
 
     }
-
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
+    @Bean
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf().disable().headers().frameOptions().sameOrigin();
 
         http.authorizeRequests()
-                .antMatchers("/api/register", "/h2-console/**", "/actuator/shutdown").permitAll()
+                .antMatchers("/api/register", "/h2-console/**", "/actuator/shutdown", "/api/recipe/*").permitAll()
                 .and()
                 .authorizeRequests().anyRequest().authenticated()
                 .and()
@@ -64,6 +62,8 @@ public class WebSecurityConfigurerImpl extends WebSecurityConfigurerAdapter {
 
 
         http.httpBasic();
+
+        return http.build();
 
     }
 

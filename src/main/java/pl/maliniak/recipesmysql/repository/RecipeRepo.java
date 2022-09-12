@@ -13,7 +13,5 @@ public interface RecipeRepo extends CrudRepository<Recipe, Long> {
     List<Recipe> findByCategoryIgnoreCaseOrderByDateDesc(String category);
     List<Recipe> findByNameIgnoreCaseContainsOrderByDateDesc(String name);
 
-//    List<Recipe> findBy(String value);
-
 
 }
