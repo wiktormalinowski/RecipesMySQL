@@ -3,8 +3,9 @@ package pl.maliniak.recipesmysql.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
@@ -13,11 +14,12 @@ import javax.validation.constraints.NotEmpty;
 import java.time.LocalDateTime;
 import java.util.List;
 
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name= "RECIPES")
+@Table(name = "RECIPES")
 public class Recipe {
 
     @Id
@@ -50,7 +52,6 @@ public class Recipe {
     @Column(name = "Ingredient")
     @NotEmpty
     List<String> ingredients;
-
 
 
     @ElementCollection

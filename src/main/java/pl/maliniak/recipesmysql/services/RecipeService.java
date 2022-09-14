@@ -20,6 +20,7 @@ public class RecipeService {
     public Recipe findRecipeById(Long id) {
         return recipeRepo.findRecipeById(id);
     }
+
     public void save(Recipe toSave) {
         recipeRepo.save(toSave);
     }
@@ -39,6 +40,7 @@ public class RecipeService {
     public List<Recipe> findRecipesByName(String value) {
         return recipeRepo.findByNameIgnoreCaseContainsOrderByDateDesc(value);
     }
+
     public List<Recipe> findRecipesByCategory(String category) {
         return recipeRepo.findByCategoryIgnoreCaseOrderByDateDesc(category);
     }

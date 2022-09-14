@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -23,6 +24,7 @@ public class WebSecurityConfigurerImpl {
 
     @Value("${app.defaultPassword}")
     String defaultPassword;
+
     public WebSecurityConfigurerImpl(UserDetailsServiceImpl userDetailsService, EncoderConfig encoder) {
         this.userDetailsService = userDetailsService;
         this.encoder = encoder;
@@ -46,12 +48,14 @@ public class WebSecurityConfigurerImpl {
 
 
     }
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf().disable().headers().frameOptions().sameOrigin();
 
         http.authorizeRequests()
-                .antMatchers("/api/register", "/h2-console/**", "/actuator/shutdown", "/api/recipe/*").permitAll()
+                .antMatchers(HttpMethod.GET, "/api/recipe/*").permitAll()
+                .antMatchers("/api/register", "/h2-console/**", "/actuator/shutdown").permitAll()
                 .and()
                 .authorizeRequests().anyRequest().authenticated()
                 .and()
@@ -59,14 +63,11 @@ public class WebSecurityConfigurerImpl {
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
 
-
-
         http.httpBasic();
 
         return http.build();
 
     }
-
 
 
 }

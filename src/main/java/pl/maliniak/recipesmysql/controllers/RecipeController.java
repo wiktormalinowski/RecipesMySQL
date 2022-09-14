@@ -6,9 +6,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import pl.maliniak.recipesmysql.entities.Recipe;
-import pl.maliniak.recipesmysql.services.RecipeService;
 import pl.maliniak.recipesmysql.entities.UserDetailsImpl;
 import pl.maliniak.recipesmysql.repository.UserRepo;
+import pl.maliniak.recipesmysql.services.RecipeService;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -19,8 +19,9 @@ import java.util.Objects;
 @RestController
 public class RecipeController {
 
-    private RecipeService recipeService;
-    private UserRepo userRepo;
+    private final RecipeService recipeService;
+    private final UserRepo userRepo;
+
     public RecipeController(RecipeService recipeService, UserRepo userRepo) {
         this.recipeService = recipeService;
         this.userRepo = userRepo;
@@ -28,13 +29,14 @@ public class RecipeController {
 
 
     @GetMapping(value = "/api/recipe/{id}")
-    public ResponseEntity<String> getRecipe(@PathVariable("id") Long id) {
+    public ResponseEntity getRecipe(@PathVariable("id") Long id) {
         if (!recipeService.exist(id)) {
             return new ResponseEntity<>("404 (Not found)", HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<>(recipeService.findRecipeById(id).toString(), HttpStatus.OK);
+        return new ResponseEntity<>(recipeService.findRecipeById(id), HttpStatus.OK);
 
     }
+
     @PostMapping(value = "/api/recipe/new")
     public ResponseEntity saveRecipe(@AuthenticationPrincipal UserDetailsImpl userDetails, @Valid @RequestBody Recipe recipe) {
         log.info("działa");
@@ -76,12 +78,13 @@ public class RecipeController {
         return new ResponseEntity<>("204 (No Content)", HttpStatus.NO_CONTENT);
     }
 
-    @GetMapping(value = "api/recipe/search/", params = "name")
+    @GetMapping(value = "api/recipe/search", params = "name")
     public ResponseEntity<List<Recipe>> findRecipeByName(@RequestParam("name") String name) {
         List<Recipe> foundRecipes = recipeService.findRecipesByName(name);
         return new ResponseEntity<>(foundRecipes, HttpStatus.OK);
     }
-    @GetMapping(value = "api/recipe/search/", params = "category")
+
+    @GetMapping(value = "api/recipe/search", params = "category")
     public ResponseEntity<List<Recipe>> findRecipeByCategory(@RequestParam("category") String category) {
         List<Recipe> foundRecipes = recipeService.findRecipesByCategory(category);
         return new ResponseEntity<>(foundRecipes, HttpStatus.OK);

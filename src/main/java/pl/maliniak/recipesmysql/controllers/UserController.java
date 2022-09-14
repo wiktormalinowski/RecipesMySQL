@@ -11,10 +11,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import pl.maliniak.recipesmysql.entities.Recipe;
-import pl.maliniak.recipesmysql.entities.UserDetailsImpl;
-import pl.maliniak.recipesmysql.security.EncoderConfig;
 import pl.maliniak.recipesmysql.entities.User;
+import pl.maliniak.recipesmysql.entities.UserDetailsImpl;
 import pl.maliniak.recipesmysql.repository.UserRepo;
+import pl.maliniak.recipesmysql.security.EncoderConfig;
 import pl.maliniak.recipesmysql.services.RecipeService;
 
 import javax.validation.Valid;
