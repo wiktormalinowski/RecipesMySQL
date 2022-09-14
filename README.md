@@ -9,7 +9,6 @@ start an application using `docker-compose up -d` command
 *Without authentication*
 
 GET `/api/recipe/{id}` Finds recipe by ID
-
 POST `api/register` creates user
 
 *Authentication required*
