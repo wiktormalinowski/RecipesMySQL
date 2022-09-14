@@ -13,6 +13,13 @@ GET `/api/recipe/{id}` Finds a recipe by ID
 
 POST `/api/register` creates new user
 
+example body:
+```
+{
+   "email": "recipes@somewhere.com",
+   "password": "qwerty12"
+}
+```
 
 *Authorization required*
 
@@ -21,6 +28,7 @@ POST `api/recipe/new` - adds a new recipe
 
 example body: 
 ```
+
 {
    "name": "Bolognese",
    "category": "pasta",
