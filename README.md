@@ -6,7 +6,7 @@ start an application using `docker-compose up -d` command, it runs on port `8080
 
 **Usage example:**
 
-*Without authentication*
+*Without authorization*
 
 
 GET `/api/recipe/{id}` Finds a recipe by ID
@@ -14,7 +14,7 @@ GET `/api/recipe/{id}` Finds a recipe by ID
 POST `/api/register` creates new user
 
 
-*Authentication required*
+*Authorization required*
 
 
 POST `api/recipe/new` - adds a new recipe
