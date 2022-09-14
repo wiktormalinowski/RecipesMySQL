@@ -4,4 +4,4 @@
 
 start an application using `docker-compose up -d` command
 
-**Usage:**
+**Usage example:**
