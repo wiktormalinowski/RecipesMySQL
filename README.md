@@ -2,7 +2,7 @@
 
 ## Quick Start
 
-start an application using `docker-compose up -d` command
+start an application using `docker-compose up -d` command, application runs on port `8080`
 
 **Usage example:**
 
@@ -11,13 +11,14 @@ start an application using `docker-compose up -d` command
 
 GET `/api/recipe/{id}` Finds recipe by ID
 
-POST `api/register` creates user
+POST `/api/register` creates user
 
 
 *Authentication required*
 
 
 POST `api/recipe/new` - add new recipe
+
 example body: 
 ```
 {
