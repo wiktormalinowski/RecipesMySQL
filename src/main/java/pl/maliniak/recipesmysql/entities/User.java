@@ -20,7 +20,7 @@ import java.util.List;
 
 public class User {
     @Id
-    @Column(name = "user_id")
+    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.AUTO)
     Long id;
 
@@ -34,6 +34,6 @@ public class User {
 
     String role;
 
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER, cascade = { CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REMOVE })
     List<Recipe> favouriteRecipes;
 }

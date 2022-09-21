@@ -25,7 +25,7 @@ public class Recipe {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @JsonIgnore
-    @Column(name = "Recipe_ID")
+    @Column(name = "id")
     Long id;
 
 
@@ -48,14 +48,14 @@ public class Recipe {
 
 
     @ElementCollection
-    @CollectionTable(name = "INGREDIENTS", joinColumns = @JoinColumn(name = "Recipe_ID"))
+    @CollectionTable(name = "INGREDIENTS", joinColumns = @JoinColumn(name = "id"))
     @Column(name = "Ingredient")
     @NotEmpty
     List<String> ingredients;
 
 
     @ElementCollection
-    @CollectionTable(name = "DIRECTIONS", joinColumns = @JoinColumn(name = "Recipe_ID"))
+    @CollectionTable(name = "DIRECTIONS", joinColumns = @JoinColumn(name = "id"))
     @Column(name = "Direction")
     @NotEmpty
     List<String> directions;

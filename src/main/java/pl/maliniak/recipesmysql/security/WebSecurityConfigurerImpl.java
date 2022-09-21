@@ -37,16 +37,6 @@ public class WebSecurityConfigurerImpl {
         DaoAuthenticationProvider daoAuth = new DaoAuthenticationProvider();
         daoAuth.setUserDetailsService(userDetailsService);
         daoAuth.setPasswordEncoder(encoder.passwordEncoder());
-
-
-        auth.authenticationProvider(daoAuth);
-
-        auth.inMemoryAuthentication()
-                .withUser("admin")
-                .password(encoder.passwordEncoder().encode(defaultPassword))
-                .roles("USER");
-
-
     }
 
     @Bean
@@ -55,7 +45,7 @@ public class WebSecurityConfigurerImpl {
 
         http.authorizeRequests()
                 .antMatchers(HttpMethod.GET, "/api/recipe/*").permitAll()
-                .antMatchers("/api/register", "/h2-console/**", "/actuator/shutdown").permitAll()
+                .antMatchers("/api/register", "/h2-console/**", "/actuator/shutdown", "/testing").permitAll()
                 .and()
                 .authorizeRequests().anyRequest().authenticated()
                 .and()

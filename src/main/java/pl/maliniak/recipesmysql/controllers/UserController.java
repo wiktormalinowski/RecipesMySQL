@@ -37,19 +37,19 @@ public class UserController {
     @PostMapping("/api/register")
     public ResponseEntity registerUser(@RequestBody @Valid User user) {
         if (userRepo.findUserByEmail(user.getEmail()) != null) {
-            return new ResponseEntity<>("nie mozna rejestrrnąc", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("Cannot register new user, email already in database", HttpStatus.BAD_REQUEST);
         }
 
         user.setPassword(encoder.passwordEncoder().encode(user.getPassword()));
         user.setRole("USER");
         userRepo.save(user);
-        return new ResponseEntity<>("good", HttpStatus.OK);
+        return new ResponseEntity<>("Successfully registered", HttpStatus.OK);
     }
 
     @PostMapping("/api/setAsFavourite/{id}")
     public ResponseEntity<String> setAsFavourite(@AuthenticationPrincipal UserDetailsImpl user, @PathVariable("id") Long id) {
         if (userRepo.findUserByEmail(user.getUsername()) == null) {
-            return new ResponseEntity<>("tylko dla zarejestrowanych", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("Only for registered users", HttpStatus.BAD_REQUEST);
         }
         if (!recipeService.exist(id)) {
             return new ResponseEntity<>("404 (Not found)", HttpStatus.NOT_FOUND);
