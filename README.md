@@ -1,6 +1,11 @@
 # RecipesMySQL
 
 ## Quick Start
+use these commands to prepare a build:
+```
+./gradlew assemble
+docker build . -t myimage:0.1.0
+```
 
 start an application using `docker-compose up -d` command, it runs on port `8080`
 
