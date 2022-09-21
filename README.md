@@ -1,10 +1,15 @@
 # RecipesMySQL
 
 ## Quick Start
+use these commands to prepare a build:
+```
+./gradlew assemble
+docker build . -t myimage:0.1.0
+```
 
 start an application using `docker-compose up -d` command, it runs on port `8080`
 
-**Usage example:**
+## Usage example:
 
 *Without authorization*
 
@@ -45,8 +50,8 @@ example body:
    "name": "Bolognese",
    "category": "pasta",
    "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit.",
-   "ingredients": ["X", "Y", "Z", "A"],
-   "directions": ["Nunc dignissim", "Prius", "Id mentus", "Cras ornare tristique elit", "Vivamus vestibulum ntulla nec ante."]
+   "ingredients": ["E", "X", "A", "M", "P", "L", "E"],
+   "directions": ["T", "E", "S", "T"]
 }
 ```
 
