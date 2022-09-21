@@ -9,7 +9,7 @@ docker build . -t myimage:0.1.0
 
 start an application using `docker-compose up -d` command, it runs on port `8080`
 
-**Usage example:**
+##Usage example:
 
 *Without authorization*
 
