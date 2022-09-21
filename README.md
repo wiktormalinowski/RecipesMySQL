@@ -50,8 +50,8 @@ example body:
    "name": "Bolognese",
    "category": "pasta",
    "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit.",
-   "ingredients": ["X", "Y", "Z", "A"],
-   "directions": ["Nunc dignissim", "Prius", "Id mentus", "Cras ornare tristique elit", "Vivamus vestibulum ntulla nec ante."]
+   "ingredients": ["E", "X", "A", "M", "P", "L", "E"],
+   "directions": ["T", "E", "S", "T"]
 }
 ```
 
