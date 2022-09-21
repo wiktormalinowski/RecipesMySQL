@@ -49,7 +49,7 @@ public class UserController {
     @PostMapping("/api/setAsFavourite/{id}")
     public ResponseEntity<String> setAsFavourite(@AuthenticationPrincipal UserDetailsImpl user, @PathVariable("id") Long id) {
         if (userRepo.findUserByEmail(user.getUsername()) == null) {
-            return new ResponseEntity<>("Only for registered users", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("Available only for registered users", HttpStatus.BAD_REQUEST);
         }
         if (!recipeService.exist(id)) {
             return new ResponseEntity<>("404 (Not found)", HttpStatus.NOT_FOUND);
@@ -60,20 +60,20 @@ public class UserController {
         User userToReplace = userRepo.findUserByEmail(user.getUsername());
 
         if (favRecipes.contains(recipe)) {
-            return new ResponseEntity<>("Juz oznaczone jako ulubione", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("Already marked as favourite", HttpStatus.BAD_REQUEST);
         }
         userToReplace.getFavouriteRecipes().add(recipe);
         userRepo.save(userToReplace);
 
 
-        return new ResponseEntity<>("hula", HttpStatus.OK);
+        return new ResponseEntity<>("Done", HttpStatus.OK);
 
     }
 
     @GetMapping("/api/showFavourites")
     public ResponseEntity showFavourites(@AuthenticationPrincipal UserDetailsImpl user) {
         if (userRepo.findUserByEmail(user.getUsername()) == null) {
-            return new ResponseEntity<>("tylko dla zarejestrowanych", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("Only for registered users", HttpStatus.BAD_REQUEST);
         }
         List<Recipe> favRecipes = userRepo.findUserByEmail(user.getUsername()).getFavouriteRecipes();
         return new ResponseEntity(favRecipes, HttpStatus.OK);

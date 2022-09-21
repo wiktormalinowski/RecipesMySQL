@@ -44,9 +44,5 @@ public class RecipeService {
     public List<Recipe> findRecipesByCategory(String category) {
         return recipeRepo.findByCategoryIgnoreCaseOrderByDateDesc(category);
     }
-//    public List<Recipe> findRecipesBy(String value) {
-//        return recipeRepo.findBy(value);
-//    }
-
 
 }

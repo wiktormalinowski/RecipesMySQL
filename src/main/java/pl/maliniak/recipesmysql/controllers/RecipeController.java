@@ -68,7 +68,8 @@ public class RecipeController {
     }
 
     @DeleteMapping(value = "api/recipe/{id}")
-    public ResponseEntity<String> deleteRecipe(@AuthenticationPrincipal UserDetailsImpl userDetails, @PathVariable("id") Long id) {
+    public ResponseEntity<String> deleteRecipe(@AuthenticationPrincipal UserDetailsImpl userDetails,
+                                               @PathVariable("id") Long id) {
         if (!recipeService.exist(id)) {
             return new ResponseEntity<>("404 (Not found)", HttpStatus.NOT_FOUND);
         }
